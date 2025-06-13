@@ -49,8 +49,7 @@
                     </div>
                 </div>
                 <div class="hero-image-container">
-                    <!-- Add your image source here -->
-                    <img src="images/me.JPG" alt="A photo of Alex Johnson" class="hero-image">
+                    <img src="images/me.JPG" alt="A photo of Jersey Zenith" class="hero-image" onerror="this.onerror=null;this.src='https://placehold.co/400x500/8c73ff/FFF?text=Your+Image';">
                 </div>
             </div>
         </section>
@@ -75,7 +74,7 @@
                     <p>
                     Outside of tech and the arts, I’m into fitness and martial arts, which help keep me grounded and focused. I also enjoy gaming for inspiration and fun, 
                     and I find joy in cooking, it's another creative outlet where I can experiment and make something people enjoy. 
-                    I’m always exploring new ways to blend my technical skills with creativity. Whether it's developing an interactive interface, designing a striking visual, or producing a beat that hits just right, I’m driven by the thrill of creating something meaningful.    
+                    I’m always exploring new ways to blend my technical skills with creativity. Whether it's developing an interactive interface, designing a striking visual, or producing a beat that hits just right, I’m driven by the thrill of creating something meaningful.      
                     </p>
                     <div class="social-links">
                         <a href="https://soundcloud.com/zenithjvs" target="_blank" rel="noopener noreferrer"><i class="fab fa-soundcloud"></i></a>
@@ -140,7 +139,7 @@
                 <h2 class="section-title">My Graphics Design</h2>
                 <div class="graphics-grid">
                     <a href="https://www.instagram.com/feint.lab" target="_blank" rel="noopener noreferrer" class="graphic-item">
-                        <img src="images/5.png" alt="Graphic Design 1" onerror="this.onerror=null;this.src='//www.instagram.com/feint.lab/';">
+                        <img src="images/5.png" alt="Graphic Design 1" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Image+Not+Found';">
                         <p class="graphic-caption">Branding Identity/Logo for a Feint Lab</p>
                     </a>
                     <a href="https://www.instagram.com/p/DIOyIgbzzam/" target="_blank" rel="noopener noreferrer" class="graphic-item">
@@ -219,7 +218,6 @@
                 <div class="contact-content">
                     <p>I'm always excited to discuss new projects, creative ideas, or opportunities to be part of your vision. Feel free to send me a message!</p>
                     
-                    <!-- UPDATED: This form now points to Formspree -->
                     <form action="https://formspree.io/f/xdkzgrvj" method="POST" class="contact-form">
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -235,6 +233,8 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message <i class="fas fa-paper-plane"></i></button>
                     </form>
+                    <!-- ADDED THIS DIV FOR STATUS MESSAGES -->
+                    <div id="form-message"></div>
                 </div>
             </div>
         </section>
