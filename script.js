@@ -99,7 +99,58 @@ document.addEventListener('DOMContentLoaded', () => {
         setActiveNavLink('home');
     }
 
-    // NOTE: The JavaScript for handling form submission has been removed.
-    // Formspree handles the submission directly via the form's 'action' attribute.
-    // No extra JavaScript is needed for it to work.
+    // --- AJAX Contact Form Submission for Formspree ---
+    const contactForm = document.querySelector('.contact-form');
+    const formMessage = document.getElementById('form-message');
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const data = new FormData(form);
+        
+        try {
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                // Show success message
+                formMessage.textContent = "Your message has been sent successfully!";
+                formMessage.className = 'form-message success';
+                formMessage.style.display = 'block';
+
+                // Disable the form
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.textContent = 'Sent!';
+                const formElements = form.elements;
+                for (let i = 0; i < formElements.length; i++) {
+                    formElements[i].disabled = true;
+                }
+                
+            } else {
+                // Handle server errors from Formspree
+                const responseData = await response.json();
+                if (Object.hasOwn(responseData, 'errors')) {
+                    formMessage.textContent = responseData["errors"].map(error => error["message"]).join(", ");
+                } else {
+                    formMessage.textContent = "Oops! There was a problem submitting your form.";
+                }
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+            }
+        } catch (error) {
+            // Handle network errors
+            formMessage.textContent = "Oops! There was a problem submitting your form.";
+            formMessage.className = 'form-message error';
+            formMessage.style.display = 'block';
+        }
+    }
+
+    if (contactForm) {
+        contactForm.addEventListener("submit", handleSubmit);
+    }
 });
