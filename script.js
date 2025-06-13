@@ -99,52 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setActiveNavLink('home');
     }
 
-    // --- Handle Contact Form Submission with Fetch API ---
-    const contactForm = document.querySelector('.contact-form');
-    const formMessage = document.getElementById('form-message');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Prevent default form submission
-
-            const submitButton = contactForm.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
-            submitButton.innerHTML = 'Sending...';
-            submitButton.disabled = true;
-
-            // Clear previous messages
-            formMessage.textContent = '';
-            formMessage.className = 'form-message';
-            formMessage.style.display = 'none';
-
-            const formData = new FormData(this);
-
-            try {
-                const response = await fetch('send_email.php', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    formMessage.textContent = result.message;
-                    formMessage.classList.add('success');
-                    contactForm.reset();
-                } else {
-                    formMessage.textContent = result.message || 'An error occurred. Please try again.';
-                    formMessage.classList.add('error');
-                }
-
-            } catch (error) {
-                console.error('Form submission error:', error);
-                formMessage.textContent = 'A network error occurred. Please check your connection and try again.';
-                formMessage.classList.add('error');
-            } finally {
-                formMessage.style.display = 'block';
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
-            }
-        });
-    }
+    // NOTE: The JavaScript for handling form submission has been removed.
+    // Formspree handles the submission directly via the form's 'action' attribute.
+    // No extra JavaScript is needed for it to work.
 });
