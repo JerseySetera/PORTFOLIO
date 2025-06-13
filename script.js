@@ -101,56 +101,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- AJAX Contact Form Submission for Formspree ---
     const contactForm = document.querySelector('.contact-form');
-    const formMessage = document.getElementById('form-message');
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const form = event.target;
-        const data = new FormData(form);
+    
+    if (contactForm) {
+        const formMessage = document.getElementById('form-message');
+        const submitButton = contactForm.querySelector('button[type="submit"]');
         
-        try {
-            const response = await fetch(form.action, {
-                method: form.method,
-                body: data,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
+        // This is a check to ensure we found the button correctly.
+        if (!submitButton) {
+            console.error("Could not find the submit button inside the form.");
+            return;
+        }
 
-            if (response.ok) {
-                // Show success message
-                formMessage.textContent = "Your message has been sent successfully!";
-                formMessage.className = 'form-message success';
-                formMessage.style.display = 'block';
+        const originalButtonHTML = submitButton.innerHTML;
 
-                // Disable the form
-                const submitButton = form.querySelector('button[type="submit"]');
-                submitButton.textContent = 'Sent!';
-                const formElements = form.elements;
-                for (let i = 0; i < formElements.length; i++) {
-                    formElements[i].disabled = true;
-                }
-                
-            } else {
-                // Handle server errors from Formspree
-                const responseData = await response.json();
-                if (Object.hasOwn(responseData, 'errors')) {
-                    formMessage.textContent = responseData["errors"].map(error => error["message"]).join(", ");
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = new FormData(form);
+
+            // Give visual feedback that the form is processing
+            submitButton.innerHTML = 'Sending...';
+            submitButton.disabled = true;
+            formMessage.style.display = 'none';
+            formMessage.className = 'form-message';
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // --- SUCCESS ---
+                    formMessage.textContent = "Thank you! Your message has been sent.";
+                    formMessage.className = 'form-message success';
+                    form.reset();
+                    
+                    // Change button text and permanently disable all form elements
+                    submitButton.innerHTML = 'Message Sent!'; // Updated text
+                    
+                    const formElements = form.elements;
+                    for (let i = 0; i < formElements.length; i++) {
+                        formElements[i].disabled = true;
+                    }
                 } else {
-                    formMessage.textContent = "Oops! There was a problem submitting your form.";
+                    // --- SERVER ERROR ---
+                    const responseData = await response.json();
+                    if (Object.hasOwn(responseData, 'errors')) {
+                        formMessage.textContent = responseData.errors.map(error => error.message).join(", ");
+                    } else {
+                        formMessage.textContent = "Oops! There was a server problem. Please try again.";
+                    }
+                    formMessage.className = 'form-message error';
+                    submitButton.innerHTML = originalButtonHTML;
+                    submitButton.disabled = false;
                 }
+            } catch (error) {
+                // --- NETWORK ERROR ---
+                console.error("Form submission error:", error);
+                formMessage.textContent = "Oops! A network error occurred. Please try again.";
                 formMessage.className = 'form-message error';
+                submitButton.innerHTML = originalButtonHTML;
+                submitButton.disabled = false;
+            } finally {
                 formMessage.style.display = 'block';
             }
-        } catch (error) {
-            // Handle network errors
-            formMessage.textContent = "Oops! There was a problem submitting your form.";
-            formMessage.className = 'form-message error';
-            formMessage.style.display = 'block';
         }
-    }
 
-    if (contactForm) {
         contactForm.addEventListener("submit", handleSubmit);
     }
 });
