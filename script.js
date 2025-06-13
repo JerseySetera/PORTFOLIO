@@ -105,18 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         const formMessage = document.getElementById('form-message');
         const submitButton = contactForm.querySelector('button[type="submit"]');
-        
-        // This is a check to ensure we found the button correctly.
-        if (!submitButton) {
-            console.error("Could not find the submit button inside the form.");
-            return;
-        }
-
         const originalButtonHTML = submitButton.innerHTML;
 
-        async function handleSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
+        contactForm.addEventListener("submit", function (e) {
+            e.preventDefault(); // Stop the form from submitting the default way
+            
+            const form = e.target;
             const data = new FormData(form);
 
             // Give visual feedback that the form is processing
@@ -124,53 +118,55 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.disabled = true;
             formMessage.style.display = 'none';
             formMessage.className = 'form-message';
-            
-            try {
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: data,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
 
+            fetch(form.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
                 if (response.ok) {
                     // --- SUCCESS ---
                     formMessage.textContent = "Thank you! Your message has been sent.";
                     formMessage.className = 'form-message success';
-                    form.reset();
+                    form.reset(); // Clear the form fields
                     
                     // Change button text and permanently disable all form elements
-                    submitButton.innerHTML = 'Message Sent!'; // Updated text
+                    submitButton.innerHTML = 'Message Sent!';
                     
                     const formElements = form.elements;
                     for (let i = 0; i < formElements.length; i++) {
-                        formElements[i].disabled = true;
+                        formElements[i].disabled = true; // This disables inputs, textarea, and the button
                     }
                 } else {
                     // --- SERVER ERROR ---
-                    const responseData = await response.json();
-                    if (Object.hasOwn(responseData, 'errors')) {
-                        formMessage.textContent = responseData.errors.map(error => error.message).join(", ");
-                    } else {
-                        formMessage.textContent = "Oops! There was a server problem. Please try again.";
-                    }
+                    // Try to get a more specific error from Formspree
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            formMessage.textContent = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            formMessage.textContent = "Oops! There was a server problem. Please try again.";
+                        }
+                    }).catch(() => {
+                        formMessage.textContent = "Oops! An unknown server error occurred.";
+                    });
+                    
                     formMessage.className = 'form-message error';
                     submitButton.innerHTML = originalButtonHTML;
                     submitButton.disabled = false;
                 }
-            } catch (error) {
+            }).catch(error => {
                 // --- NETWORK ERROR ---
-                console.error("Form submission error:", error);
+                console.error("Form submission network error:", error);
                 formMessage.textContent = "Oops! A network error occurred. Please try again.";
                 formMessage.className = 'form-message error';
                 submitButton.innerHTML = originalButtonHTML;
                 submitButton.disabled = false;
-            } finally {
-                formMessage.style.display = 'block';
-            }
-        }
-
-        contactForm.addEventListener("submit", handleSubmit);
+            }).finally(() => {
+                 // Show the message div regardless of outcome
+                 formMessage.style.display = 'block';
+            });
+        });
     }
 });
