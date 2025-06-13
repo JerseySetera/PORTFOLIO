@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Port       = 465;                        // TCP port to connect to
 
         // --- Recipients ---
-        $mail->setFrom('your.email@gmail.com', 'Portfolio Contact Form'); // The "from" address (your gmail)
+        $mail->setFrom('jerseyzenith88@gmail.com', 'Portfolio Contact Form'); // The "from" address (your gmail)
         $mail->addAddress('jerseyzenith88@gmail.com', 'Jersey Zenith');      // The "to" address (where you want to receive the email)
         $mail->addReplyTo($email, $name); // Set the "Reply-To" to be the person who submitted the form
 
