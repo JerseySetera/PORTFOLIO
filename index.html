@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="images/png" href="images/7.png">
+    <title>Jersey Zenith - Portfolio</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Page Load Animation -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#home" data-section="home" class="active"><i class="fas fa-home"></i> <span>Home</span></a>
+            <a href="#about" data-section="about"><i class="fas fa-user"></i> <span>About</span></a>
+            <a href="#skills" data-section="skills"><i class="fas fa-lightbulb"></i> <span>Skills</span></a>
+            <a href="#projects" data-section="projects"><i class="fas fa-folder-open"></i> <span>Projects</span></a>
+            <a href="#graphics" data-section="graphics"><i class="fas fa-palette"></i> <span>Graphics</span></a>
+            <a href="#music" data-section="music"><i class="fas fa-music"></i> <span>Music</span></a>
+            <a href="#contact" data-section="contact"><i class="fas fa-envelope"></i> <span>Contact</span></a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section section-content">
+            <div class="container hero-container">
+                <div class="hero-text">
+                    <h1 class="hero-title">Hi, I'm <span>Jersey Zenith</span></h1>
+                    <p class="hero-subtitle">Just a guy who's a Web Developer, Designer & a Beat Producer</p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">View My Work <i class="fas fa-arrow-right"></i></a>
+                        <a href="#contact" class="btn btn-secondary">Get in Touch <i class="fas fa-paper-plane"></i></a>
+                    </div>
+                </div>
+                <div class="hero-image-container">
+                    <!-- Add your image source here -->
+                    <img src="images/me.JPG" alt="A photo of Alex Johnson" class="hero-image">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section-content">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <p>
+                        Hello! I'm Jersey a front-end developer with a passion for bringing creative ideas to life, whether through code, graphics, or music. 
+                        My journey in coding began back in high school when I discovered my love for designing web pages. That spark grew into a full-blown passion for front-end development, 
+                        where I specialize in building visually engaging and user-friendly interfaces. While my heart lies in the front end, I also have some experience with back-end technologies, allowing me to understand the full scope of web development.
+                    </p>
+                    <p>
+                        Beyond coding, I'm also a graphic designer and a music producer. My interest in graphic design stems from my childhood love for drawing, which naturally evolved into digital art during my high school years. 
+                        For me, design is a new dimension of storytelling, a way to express art through color, shape, and intention.
+
+                        Music is another major part of who I am. I started making silly rap tracks with friends in high school, which eventually led me to explore beat production seriously. 
+                        Over time, I developed a deep appreciation for how music can communicate emotion and energy, it's the rhythm that drives so much of life.
+                    </p>
+                    <p>
+                    Outside of tech and the arts, I’m into fitness and martial arts, which help keep me grounded and focused. I also enjoy gaming for inspiration and fun, 
+                    and I find joy in cooking, it's another creative outlet where I can experiment and make something people enjoy. 
+                    I’m always exploring new ways to blend my technical skills with creativity. Whether it's developing an interactive interface, designing a striking visual, or producing a beat that hits just right, I’m driven by the thrill of creating something meaningful.    
+                    </p>
+                    <div class="social-links">
+                        <a href="https://soundcloud.com/zenithjvs" target="_blank" rel="noopener noreferrer"><i class="fab fa-soundcloud"></i></a>
+                        <a href="https://www.linkedin.com/in/jersey-setera-7955ab36b/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/feint.lab/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section-content">
+            <div class="container">
+                <h2 class="section-title">My Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">HTML</div>
+                    <div class="skill-item">CSS</div>
+                    <div class="skill-item">JavaScript</div>
+                    <div class="skill-item">PHP</div>
+                    <div class="skill-item">WordPress</div>
+                    <div class="skill-item">Adobe Photoshop</div>
+                    <div class="skill-item">Paint.NET</div>
+                    <div class="skill-item">FL Studio Beat Producing</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section-content">
+            <div class="container">
+                <h2 class="section-title">My Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Interactive Front-End Website</h3>
+                        <p>A responsive and visually engaging website built from scratch, focusing on a clean UI and smooth animations powered by JavaScript.</p>
+                        <div class="project-tags">
+                            <span class="tag tag-html">HTML</span>
+                            <span class="tag tag-css">CSS</span>
+                            <span class="tag tag-js">JavaScript</span>
+                        </div>
+                        <a href="https://github.com/znzns/JORDANS-SCHOOL-PROJECT" target="_blank" rel="noopener noreferrer" class="project-link">View Code <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                    <div class="project-card">
+                        <h3>Full-Stack Dynamic Web App</h3>
+                        <p>A database-driven web application with a PHP backend to manage and serve content dynamically from an SQL database.</p>
+                        <div class="project-tags">
+                            <span class="tag tag-php">PHP</span>
+                            <span class="tag tag-html">HTML</span>
+                            <span class="tag tag-css">CSS</span>
+                            <span class="tag tag-js">JavaScript</span>
+                            <span class="tag tag-sql">SQL</span>
+                        </div>
+                        <a href="https://github.com/znzns/WEB-SINAG-SCHOOL-PROJECT/tree/main" target="_blank" rel="noopener noreferrer" class="project-link">View Code <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Graphics Design Section -->
+       <section id="graphics" class="section-content">
+            <div class="container">
+                <h2 class="section-title">My Graphics Design</h2>
+                <div class="graphics-grid">
+                    <a href="https://www.instagram.com/feint.lab" target="_blank" rel="noopener noreferrer" class="graphic-item">
+                        <img src="images/5.png" alt="Graphic Design 1" onerror="this.onerror=null;this.src='//www.instagram.com/feint.lab/';">
+                        <p class="graphic-caption">Branding Identity/Logo for a Feint Lab</p>
+                    </a>
+                    <a href="https://www.instagram.com/p/DIOyIgbzzam/" target="_blank" rel="noopener noreferrer" class="graphic-item">
+                        <img src="images/1.png" alt="Graphic Design 2" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Image+Not+Found';">
+                        <p class="graphic-caption">Art of the Move: Motus in Distorsione</p>
+                    </a>
+                    <a href="https://www.instagram.com/p/DItZ8Q7Tl-w/" target="_blank" rel="noopener noreferrer" class="graphic-item">
+                        <img src="images/2.png" alt="Graphic Design 3" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Image+Not+Found';">
+                        <p class="graphic-caption">Series: Random Poster Collections III</p>
+                    </a>
+                    <a href="https://www.instagram.com/p/DIRU2JAz8xP/?img_index=1" target="_blank" rel="noopener noreferrer" class="graphic-item">
+                        <img src="images/3.png" alt="Graphic Design 4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Image+Not+Found';">
+                        <p class="graphic-caption">Art of the Move: vita ex morte</p>
+                    </a>
+                    <a href="https://www.instagram.com/p/DJt___kTWWG/" target="_blank" rel="noopener noreferrer" class="graphic-item">
+                        <img src="images/4.png" alt="Graphic Design 5" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Image+Not+Found';">
+                        <p class="graphic-caption">Series: Random Poster Collections V</p>
+                    </a>
+                    <a href="https://www.instagram.com/p/DIblSHET_Py/" target="_blank" rel="noopener noreferrer" class="graphic-item">
+                        <img src="images/6.png" alt="Graphic Design 6" onerror="this.onerror=null;this.src='https://placehold.co/600x400/333/FFF?text=Image+Not+Found';">
+                        <p class="graphic-caption">Series: Random Poster Collections I</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Section -->
+        <section id="music" class="section-content">
+            <div class="container">
+                <h2 class="section-title">My Beat Production</h2>
+                <div class="music-grid">
+                    <div class="music-item">
+                        <div class="video-container">
+                            <video controls width="100%">
+                                <source src="video/1.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <p class="music-caption">Boom Bap Type Beat <br> "June 12, 2025 Track 3"</p>
+                    </div>
+                    <div class="music-item">
+                        <div class="video-container">
+                            <video controls width="100%">
+                                <source src="video/2.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <p class="music-caption">Melodic Jersey Club Type Beat <br> "June 4, 2025 Track 2"</p>
+                    </div>
+                    <div class="music-item">
+                         <div class="video-container">
+                            <video controls width="100%">
+                                <source src="video/3.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <p class="music-caption">Lo-Fi Type Beat <br> "June 9, 2024 Track 13"</p>
+                    </div>
+                    <div class="music-item">
+                        <div class="video-container">
+                           <video controls width="100%">
+                                <source src="video/4.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <p class="music-caption">Aggressive Phonk Type Beat <br> "September 28, 2022 Track 10"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section-content">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-content">
+                    <p>I'm always excited to discuss new projects, creative ideas, or opportunities to be part of your vision. Feel free to send me a message!</p>
+                    <form action="send_email.php" method="POST" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="6" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© <span id="current-year"></span> Jersey Zenith. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/jerseyzenith.setera" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.linkedin.com/in/jersey-setera-7955ab36b/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/feint.lab/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
