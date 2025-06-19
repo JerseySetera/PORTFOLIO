@@ -74,27 +74,26 @@ body {
     transform: translateY(0);
 }
 
-#home.section-content {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 /* --- Hero Section with Image --- */
 .hero-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column; /* Mobile-first: stack items vertically */
+    flex-direction: column;
     text-align: center;
     gap: 40px;
 }
 
 .hero-text {
     max-width: 600px;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition-delay: 0.2s;
 }
 
 .hero-title {
-    font-size: 3.0em; /* EDITED - Was 3.2em */
+    font-size: 3.0em;
     font-weight: 800;
     margin-bottom: 15px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -105,20 +104,32 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 1.5em; /* EDITED - Was 1.6em */
+    font-size: 1.5em;
     font-style: italic;
     opacity: 0.9;
     margin-bottom: 40px;
 }
 
 .hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition-delay: 0.6s;
 }
 
 .hero-image-container {
-    max-width: 300px; /* Control image size on mobile */
+    max-width: 300px; 
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition-delay: 0.4s;
+}
+
+#home.is-visible .hero-text,
+#home.is-visible .hero-image-container,
+#home.is-visible .hero-buttons {
+    opacity: 1;
+    transform: none;
 }
 
 .hero-image {
@@ -137,6 +148,7 @@ body {
 .btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: 15px 30px;
     border: none;
     border-radius: 50px;
@@ -145,9 +157,6 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
     cursor: pointer;
     font-size: 1.1em;
-     display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .btn i {
@@ -254,7 +263,7 @@ body {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
     gap: 30px;
 }
 
@@ -334,25 +343,39 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
     display: block;
-    text-decoration: none; /* This is the correct fix */
+    text-decoration: none;
     color: inherit;
-
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease;
 }
 
-.graphic-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+/* This rule is more specific and correctly applies the hover effect */
+#graphics.is-visible .graphic-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(140, 115, 255, 0.3);
 }
+
+#graphics.is-visible .graphic-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#graphics.is-visible .graphic-item:nth-child(1) { transition-delay: 0.1s; }
+#graphics.is-visible .graphic-item:nth-child(2) { transition-delay: 0.2s; }
+#graphics.is-visible .graphic-item:nth-child(3) { transition-delay: 0.3s; }
+#graphics.is-visible .graphic-item:nth-child(4) { transition-delay: 0.4s; }
+#graphics.is-visible .graphic-item:nth-child(5) { transition-delay: 0.5s; }
+#graphics.is-visible .graphic-item:nth-child(6) { transition-delay: 0.6s; }
+
 
 .graphic-item img {
     width: 100%;
     height: 200px;
     object-fit: cover;
     display: block;
-    border-bottom: 1px solid #3a3a3a;
 }
 
 .graphic-caption {
@@ -363,7 +386,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none; /* This line was added */
 }
 
 .music-grid {
@@ -463,6 +485,27 @@ body {
     box-shadow: 0 0 0 3px rgba(140, 115, 255, 0.3);
 }
 
+/* Form Message Styles */
+#form-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: none;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+#form-message.success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#form-message.error {
+    background-color: #f44336;
+    color: white;
+}
+
 .footer {
     background-color: #000000;
     color: #a0a0a0;
@@ -494,25 +537,26 @@ body {
     top: auto;
     background-color: rgba(26, 26, 26, 0.75);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
+    -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, top 0.3s, bottom 0.3s;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 .navbar::-webkit-scrollbar {
     display: none;
 }
 .navbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
 
 .nav-links {
     display: flex;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     max-width: none;
     margin: 0;
     padding: 5px 15px;
@@ -556,32 +600,35 @@ body {
         padding-top: 70px;
     }
     
-    /* Hero Section layout for larger screens */
     .hero-container {
-        flex-direction: row; /* Side-by-side layout */
+        flex-direction: row; 
         justify-content: space-between;
         text-align: left;
     }
 
     .hero-text {
-        flex: 1; /* Allow text to take up available space */
+        flex: 1; 
         max-width: 50%;
     }
     
     .hero-image-container {
         flex: 1;
-        max-width: 400px; /* Control image size */
+        max-width: 400px; 
     }
 
     .hero-buttons {
-        justify-content: flex-start; /* Align buttons to the left */
+        justify-content: flex-start;
     }
 
     .hero-title {
-        font-size: 4.2em; /* EDITED - Was 4.5em */
+        font-size: 4.2em; 
     }
     .hero-subtitle {
-        font-size: 2.0em; /* EDITED - Was 2.2em */
+        font-size: 2.0em; 
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr 1fr;
     }
 
     .navbar {
@@ -589,8 +636,9 @@ body {
         bottom: auto;
         padding: 0;
         background-color: #212121e0;
-        backdrop-filter: blur(10px);
+        border-top: none;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        overflow-x: hidden;
     }
     
     .nav-links {
@@ -619,10 +667,10 @@ body {
 
 @media (min-width: 1024px) {
     .hero-title {
-        font-size: 3.7em; /* EDITED - Was 5em */
+        font-size: 3.7em;
     }
     .hero-subtitle {
-        font-size: 2.3em; /* EDITED - Was 2.5em */
+        font-size: 2.3em; 
     }
     .section-title {
         font-size: 4em;
