@@ -66,11 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                if (!entry.target.classList.contains('is-visible')) {
-                    entry.target.classList.add('is-visible');
-                }
+                // This part is the same
+                entry.target.classList.add('is-visible');
                 const sectionId = entry.target.id;
                 setActiveNavLink(sectionId);
+            } else {
+                // THIS BLOCK WAS ADDED
+                // It removes the class when the section scrolls out of view.
+                entry.target.classList.remove('is-visible');
             }
         });
     };
