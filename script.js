@@ -66,13 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // This part is the same
                 entry.target.classList.add('is-visible');
                 const sectionId = entry.target.id;
                 setActiveNavLink(sectionId);
             } else {
-                // THIS BLOCK WAS ADDED
-                // It removes the class when the section scrolls out of view.
+                // Remove the class when the section scrolls out of view to re-trigger animation
                 entry.target.classList.remove('is-visible');
             }
         });
@@ -95,6 +93,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Hero Image Slider ---
+    const heroImageContainer = document.querySelector('.hero-image-container');
+    if (heroImageContainer) {
+        const heroImages = heroImageContainer.querySelectorAll('.hero-image');
+        let currentIndex = 0;
+
+        if (heroImages.length > 1) {
+            setInterval(() => {
+                const currentImage = heroImages[currentIndex];
+                const nextIndex = (currentIndex + 1) % heroImages.length;
+                const nextImage = heroImages[nextIndex];
+
+                // Lazy load the next image
+                if (nextImage.dataset.src) {
+                    nextImage.src = nextImage.dataset.src;
+                    nextImage.removeAttribute('data-src');
+                }
+
+                currentImage.classList.remove('active-slide');
+                nextImage.classList.add('active-slide');
+
+                currentIndex = nextIndex;
+            }, 2000);
+        }
+    }
+
+
     // Initial check for the hero section
     const homeSection = document.getElementById('home');
     if (homeSection) {
@@ -108,19 +133,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         const formMessage = document.getElementById('form-message');
         const submitButton = contactForm.querySelector('button[type="submit"]');
+        
+        if (!submitButton || !formMessage) {
+            console.error("The contact form is missing the submit button or the message div.");
+            return;
+        }
+        
         const originalButtonHTML = submitButton.innerHTML;
 
         contactForm.addEventListener("submit", function (e) {
-            e.preventDefault(); // Stop the form from submitting the default way
+            e.preventDefault(); 
             
             const form = e.target;
             const data = new FormData(form);
 
-            // Give visual feedback that the form is processing
             submitButton.innerHTML = 'Sending...';
             submitButton.disabled = true;
             formMessage.style.display = 'none';
-            formMessage.className = 'form-message';
+            formMessage.className = 'form-message'; // Reset classes
 
             fetch(form.action, {
                 method: form.method,
@@ -129,25 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Accept': 'application/json'
                 }
             }).then(response => {
+                formMessage.style.display = 'block';
                 if (response.ok) {
-                    // --- SUCCESS ---
                     formMessage.textContent = "Thank you! Your message has been sent.";
-                    formMessage.className = 'form-message success';
-                    form.reset(); // Clear the form fields
+                    formMessage.classList.add('success');
+                    form.reset(); 
                     
-                    // Change button text and permanently disable all form elements
                     submitButton.innerHTML = 'Message Sent!';
                     
                     const formElements = form.elements;
                     for (let i = 0; i < formElements.length; i++) {
-                        formElements[i].disabled = true; // This disables inputs, textarea, and the button
+                        formElements[i].disabled = true;
                     }
                 } else {
-                    // --- SERVER ERROR ---
-                    // Try to get a more specific error from Formspree
                     response.json().then(data => {
                         if (Object.hasOwn(data, 'errors')) {
-                            formMessage.textContent = data["errors"].map(error => error["message"]).join(", ");
+                            formMessage.textContent = data.errors.map(error => error.message).join(", ");
                         } else {
                             formMessage.textContent = "Oops! There was a server problem. Please try again.";
                         }
@@ -155,20 +182,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         formMessage.textContent = "Oops! An unknown server error occurred.";
                     });
                     
-                    formMessage.className = 'form-message error';
+                    formMessage.classList.add('error');
                     submitButton.innerHTML = originalButtonHTML;
                     submitButton.disabled = false;
                 }
             }).catch(error => {
-                // --- NETWORK ERROR ---
                 console.error("Form submission network error:", error);
                 formMessage.textContent = "Oops! A network error occurred. Please try again.";
                 formMessage.className = 'form-message error';
                 submitButton.innerHTML = originalButtonHTML;
                 submitButton.disabled = false;
-            }).finally(() => {
-                 // Show the message div regardless of outcome
-                 formMessage.style.display = 'block';
+                formMessage.style.display = 'block';
             });
         });
     }
